@@ -20,7 +20,7 @@
     "FlightSimulator_Web": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "htmlpage.gtml",
+      "launchUrl": "htmlpage.html",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
