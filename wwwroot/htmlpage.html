@@ -4,13 +4,21 @@
     <!--<meta charset="utf-8" />
     <title></title>-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 
     <!--bootsrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
+
+
+
     <!--bootsrap-->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
@@ -24,6 +32,7 @@
             left: 0;
             right: 0;
         }
+
 
         .myclass {
             height: 400px;
@@ -56,16 +65,9 @@
     <div class="container">
         <div class="row myclass">
             <div class="col-8">
-                <!--<div id="map" style="width: 1400px; height: 600px">-->
-                <!--<div id="map" style="width: 100px; height: 100px">
-                </div>-->
-                <!--<div class="container">
-                    <div class="row" style="background-color:yellow;">
-                    </div>
-                    <div class="row" style="background-color:green;">
-                    </div>
-                </div>-->
+
                 <div id="map" style="width: 100%; height: 400px">
+
                 </div>
             </div>
             <div class="col-4" style="background-color:cornflowerblue;">
@@ -76,26 +78,26 @@
 
             <div class="col-8" style="background-color:lightpink;">
                 <h2>Flight Details:</h2>
-                <table>
+                <table id="tbFlightDetails">
                     <tr>
                         <th>Flight ID</th>
-                        <th>aaaaaaaaaa</th>
+                        <th></th>
                     </tr>
                     <tr>
                         <td>Starting Point</td>
-                        <td>bbbbbbbbbb</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>Ending Point</td>
-                        <td>bbbbbbbbbb</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>Company name</td>
-                        <td>ccccccccccc</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>Number of passengers</td>
-                        <td>ddddddddddd</td>
+                        <td></td>
                     </tr>
                 </table>
             </div>
@@ -103,12 +105,88 @@
         </div>
     </div>
 
-    <!--<div id="map" style="width: 1400px; height: 600px"></div>-->
+
+
     <script>
         var map = L.map('map').setView([0, 0], 1);
         L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=2LNqDe6v0xBDFUL4TTOt', {
             attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-        }).addTo(map);</script>
+        }).addTo(map);
+        var planeIcon = L.Icon.extend({
+            options: {
+                iconSize: [30, 30],
+                iconAnchor: [0, 0],
+                popupAnchor: [0, 0]
+            }
+        });
+        var blackIcon = new planeIcon({ iconUrl: 'airplane-icon.png' });
+        var blueIcon = new planeIcon({ iconUrl: 'airplane-blue-icon.png' });
+
+        var theMarker = L.marker([32.073, 34.784], { icon: blackIcon }).on('click', function () {
+
+            map.removeLayer(theMarker);
+
+            L.marker([32.073, 34.784], { icon: blueIcon }).addTo(map);
+
+            var settings = {
+                "url": "http://localhost:56774/htmlpage.html",
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/javascript"
+                }
+            };
+
+            $.ajax(settings).done(function (flight) {
+                //  var jsonObj = JSON.parse(response);
+
+                $('#tbFlightDetails').empty();
+                var row = `
+
+                            <tr>
+                                <th>Flight ID</th>
+                                <th>`+ console.log(flight) + `</th>
+                            </tr>
+                            <tr>
+                                <td>Starting Point</td>
+                                <td>`+ console.log(flight) + `</td>
+                            </tr>
+                            <tr>
+                                <td>Ending Point</td>
+                                <td>`+ console.log(flight) + `</td>
+                            </tr>
+                            <tr>
+                                <td>Company name</td>
+                                <td>`+ console.log(flight) + `</td>
+                            </tr>
+                            <tr>
+                                <td>Number of passengers</td>
+                                <td>`+ console.log(flight) + `</td>
+                            </tr>
+                       `
+                $('#tbFlightDetails').append(row);
+            });
+
+
+        }).addTo(map);
+
+           // map.on('click', function (e) {
+                //var popLocation = e.latlng;
+                //var popup = L.popup()
+                //    .setLatLng(popLocation)
+                //    .setContent('<p>Hello world!<br />This is a nice popup.</p>')
+                //    .openOn(map);
+              //  alert(e.latlng);
+           // });
+
+
+            //function PlaneClick() {
+            //    L.Map().removeLayer(blackIcon);
+            //    L.marker([32.073, 34.784], { icon: BlueIcon }).addTo(map);
+
+            // }
+
+    </script>
+
     <style>
         div.relative {
             position: relative;
