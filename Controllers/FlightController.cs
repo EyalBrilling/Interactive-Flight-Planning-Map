@@ -7,6 +7,10 @@ using FlightSimulator_Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace FlightSimulator_Web.Controllers
 {
@@ -15,12 +19,13 @@ namespace FlightSimulator_Web.Controllers
     public class FlightController : ControllerBase
     {
 
-        private FlightManager flightManager;
-  
+        public FlightManager flightManager;
+        
 
-        public FlightController()
+
+        public FlightController(FlightManager flightManager)
         {
-            this.flightManager = new FlightManager();
+            this.flightManager = flightManager;
            
         }
 
@@ -31,15 +36,17 @@ namespace FlightSimulator_Web.Controllers
             return flightManager.ReturnInternalFlightsByDate(date);
         }
 
+      
 
-        [Route("FlightPlan")]
-        [HttpPost]
-        public ActionResult PostNewFlight(FlightPlan recivedflightPlan)
-        {
-            FlightPlan newFlightPlan = recivedflightPlan;
-            flightManager.AddNewFlight(newFlightPlan);
-            return Ok() ;
-        }
+        //[Route("FlightPlan")]
+        //[HttpPost]
+        //public async Task<ActionResult<FlightPlan> PostFlightPlan(FlightPlan flightPlan)
+        //{
+            
+        //    //string recivedFlightPlanString = recivedFlightPlan.ToString();
+        //    //flightManager.AddNewFlight(recivedFlightPlanString);
+        //    //return Ok();
+        //}
 
 
 
