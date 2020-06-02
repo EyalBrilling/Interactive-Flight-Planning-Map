@@ -14,7 +14,7 @@ namespace FlightSimulator_Web.Controllers.Models
         public double Longitude { get; set; }
         public int Passengers { get; set; }
         public string Company_Name { get; set; }
-        public DateTime Date_Time { get; set; }
+        public DateTimeOffset Date_Time { get; set; }
         public bool is_External { get; set; }
     }
 }

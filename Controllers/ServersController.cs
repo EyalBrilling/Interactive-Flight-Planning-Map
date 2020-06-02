@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FlightSimulator_Web.Models;
+using System.Net.Http;
 
 namespace FlightSimulator_Web.Controllers
 {
@@ -14,10 +15,13 @@ namespace FlightSimulator_Web.Controllers
     public class ServersController : ControllerBase
     {
         private readonly FlightsContext serverContext;
+        
 
         public ServersController(FlightsContext context)
         {
             serverContext = context;
+         
+
         }
 
         // GET: api/servers
@@ -26,6 +30,7 @@ namespace FlightSimulator_Web.Controllers
         public async Task<ActionResult<IEnumerable<Server>>> GetServers()
         {
             return await serverContext.Servers.ToListAsync();
+
         }
 
         // GET(by ID): api/servers/5
@@ -90,5 +95,7 @@ namespace FlightSimulator_Web.Controllers
         {
             return serverContext.Servers.Any(e => e.serverID == id);
         }
+
+        
     }
 }
