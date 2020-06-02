@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+    <!--<meta charset="utf-8" />
+    <title></title>-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
 
 
@@ -11,14 +11,14 @@
 
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 
-    bootsrap
+    <!--bootsrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 
 
 
-    bootsrap
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <!--bootsrap-->
+    <!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
@@ -33,32 +33,53 @@
             right: 0;
         }
 
+        /*.grid-container {
+            display: grid;
+            grid-template-columns: auto auto;
+            padding: 10px;
+        }*/
 
         .myclass {
             height: 400px;
         }
 
+        col-4 {
+            background-image: url('sky.png');
+            background-size: 100px 100px;
+        }
+
+        .button {
+            background-image: url('x.png');
+            background-size: 30px 30px;
+            padding: 3px 15px;
+        }
+
+        /*.button1 {
+            background-color: white;
+            text-align: justify;
+        }*/
+
         h2 {
             font-weight: bold;
             color: #0c090a;
-            font-size: 25px;
+            font-size: 15px;
         }
 
         table {
             font-family: Arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
+            border: none;
+            width: 5%;
         }
 
         td, th {
-            border: 2px solid #0c090a;
+            border: none;
             text-align: left;
-            padding: 16px;
+            padding: 10px;
         }
 
-        tr:nth-child(even) {
-            background-color: #ffffff;
-        }
+        /*tr:nth-child(even) {
+            /*background-color: #ffffff;*/
+        /*}*/
     </style>
 </head>
 <body>
@@ -70,121 +91,412 @@
 
                 </div>
             </div>
-            <div class="col-4" style="background-color:cornflowerblue;">
+            <div class="col-4" style="  background-color:lightgray;">
+                <script>
+
+
+                    //function addRow() {
+                    //    let root = document.getElementById('tbMyFlights');
+                    //    let rows = root.getElementsByTagName('tr');
+                    //    let clone = cloneEl(rows[rows.length - 1]);
+                    //    root.appendChild(clone);
+                    //}
+                    //function cloneEl(el) {
+                    //    let clo = el.cloneNode(true);
+                    //    return clo;
+                    //}
+                    //function DeleteRow() {
+                    //    document.getElementById("tbMyFlights").deleteRow(0);
+                    //}
+                    //function DeleteFLight(string) {
+                    //    //  ids.forEach(function (FlightPlan) {
+                    //    //delete the flight plane with the same id &&
+                    //    // delete from the table lise &&
+                    //    // if the details show - empty that table
+                    //    // };
+                    //}
+                </script>
                 <h2>My Flights:</h2>
+                <!--<form action="">-->
+                <label for="myfile">Add Flight From File</label>
+                <input type="file" id="myfile" name="myfile"><br><br>
+                <input type="button" onclick="fileUpload()" value="Upload">
+
+
+
+                <!--<input type="button" value="Add a Row" onclick="addRow()">
+                <input type="button" value="delete a Row" onclick="DeleteRow()">-->
+                <!--</form>-->
+                <br>
+                <table id="tbMyFlights">
+                    <!--<tr>
+                        <th>Flight ID</th>
+                        <th>Flight Company</th>
+                        <th>Button</th>
+                    </tr>-->
+                    <!--<tr>
+                        <td><input type="button" name="X" class="button" size="20" onclick="DeleteFLight()" /> </td>
+
+                        <td>flight id</td>
+                        <td>flight company</td>
+                    </tr>-->
+
+                </table>
+
             </div>
+
         </div>
         <div class="row myclass">
 
-            <div class="col-8" style="background-color:lightpink;">
-                <h2>Flight Details:</h2>
-                <table id="tbFlightDetails">
+            <div class="col-8" style="  background-image: url('sunset.png');">
+                <div>
+                    <h2>Flight Details:</h2>
+                    <table id="tbFlightDetails" style="width:100%">
+                        <tr>
+                            <th>Flight ID</th>
+                            <th id="f_id"></th>
+                        </tr>
+                        <tr>
+                            <td>Starting Point</td>
+                            <td id="s_p"></td>
+                        </tr>
+                        <tr>
+                            <td>Ending Point</td>
+                            <td id="e_p"></td>
+                        </tr>
+                        <tr>
+                            <td>Company name</td>
+                            <td id="c_n"></td>
+                        </tr>
+                        <tr>
+                            <td>Number of passengers</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-4" style=" background-color:lightgray ">
+
+                <script>
+                    function addExternalFlight() {
+                        let root = document.getElementById('tbExternalFlights');
+                        let rows = root.getElementsByTagName('tr');
+                        let clone = cloneEl(rows[rows.length - 1]);
+                        root.appendChild(clone);
+                    }
+
+                </script>
+                <h2>External Flights:</h2>
+                <!--<form action="">
+                    <input type="button" value="Add external" onclick="addExternalFlight()">
+                </form>-->
+                <br>
+                <table id="tbExternalFlights" style="width:50%">
                     <tr>
-                        <th>Flight ID</th>
-                        <th></th>
+                        <td>flight id</td>
+                        <td>flight company</td>
                     </tr>
-                    <tr>
-                        <td>Starting Point</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Ending Point</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Company name</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Number of passengers</td>
-                        <td></td>
-                    </tr>
+
                 </table>
             </div>
-            <div class="col-4" style="background-color:cornflowerblue;"><h2>External Flights:</h2></div>
         </div>
     </div>
 
 
 
     <script>
-        var map = L.map('map').setView([0, 0], 1);
+        function fileUpload() {
+            var fr = new FileReader();
+            fr.onload = function () {
+                // document.getElementById('output').textContent = fr.result;
+
+                //  alert(fr.result);
+
+
+                var settings = {
+                    "url": "http://localhost:56774/api/FlightPlan",
+                    "method": "POST",
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                    "data": JSON.stringify(fr.result),
+                };
+
+                $.ajax(settings).done(function (response) {
+                    console.log(response);
+                });
+            }
+
+            fr.readAsText(document.getElementById('myfile').files[0]);
+        }
+
+
+        let map = L.map('map').setView([0, 0], 1);
         L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=2LNqDe6v0xBDFUL4TTOt', {
             attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
         }).addTo(map);
-        var planeIcon = L.Icon.extend({
+        let planeIcon = L.Icon.extend({
             options: {
                 iconSize: [30, 30],
                 iconAnchor: [0, 0],
                 popupAnchor: [0, 0]
             }
         });
-        var blackIcon = new planeIcon({ iconUrl: 'airplane-icon.png' });
-        var blueIcon = new planeIcon({ iconUrl: 'airplane-blue-icon.png' });
 
-        var theMarker = L.marker([32.073, 34.784], { icon: blackIcon }).on('click', function () {
+        //function onMapClick(e) {
+        //    $('#tbFlightDetails').append(row);
+        //        let myFLight = `
 
-            map.removeLayer(theMarker);
+        //         <tr>
+        //         <th>Flight ID</th>
+        //         <th>yay</th>
+        //         </tr>
+        //         <tr>
+        //         <td>Starting Point</td>
+        //          <td></td>
+        //          </tr>
+        //          <tr>
+        //          <td>Ending Point</td>
+        //        <td></td>
+        //          </tr>
+        //         <tr>
+        //          <td>Company name</td>
+        //         <td></td>
+        //          </tr>
+        //          <tr>
+        //        <td>Number of passengers</td>
+        //          <td></td>
+        //          </tr>
+        //        `
+        //        $('#tbMyFlights').append(myFLight);
+        //}
 
-            L.marker([32.073, 34.784], { icon: blueIcon }).addTo(map);
+        //mymap.on('click', onMapClick);
 
-            var settings = {
-                "url": "http://localhost:56774/htmlpage.html",
-                "method": "GET",
-                "headers": {
-                    "Content-Type": "application/javascript"
+
+
+
+
+        //added
+        //try {
+        //    let blackIcon = new planeIcon({ iconUrl: 'airplane-icon.png' });
+        //    let blueIcon = new planeIcon({ iconUrl: 'airplane-blue-icon.png' });
+        //    //L.marker([32.073, 34.784], { icon: blackIcon }).addTo(map);
+        //    let theMarker = L.marker([32.073, 34.784], { icon: blackIcon }).on('click', function () {
+        //        map.removeLayer(theMarker);
+        //        L.marker([32.073, 34.784], { icon: blueIcon }).addTo(map);
+        //    }).addTo(map);
+        //} catch (err) {
+        //    console.error(err);
+        //}
+
+
+        let allFlightsdata = [];
+        let all_ids = [];
+
+        var settings = {
+            "url": "http://localhost:56774/api/Flights?relative_to=2020-12-27T01:50:21Z",
+            "method": "GET"
+        };
+
+
+        let interval = setInterval(function () {
+            $('#tbMyFlights').empty();
+            allFlightsdata = [];
+            all_ids = [];
+            $.ajax(settings).done(function (response) {
+                console.log(`test1: ` + response);
+                response = response.planes;
+
+
+                let row = `
+                                                                <tr>
+                                                                    <td>Flight ID</td>
+                                                                    <td>Flight Company</td>
+                                                                    <td>Button</td>
+                                                                </tr>
+                                                           `
+                $('#tbMyFlights').append(row);
+                for (var i = 0; i < response.length; i++) {
+
+                    allFlightsdata.push(response[i]);
+
+                    //let theMarker = L.marker([32.073, 34.784], { icon: blackIcon }).on('click', function () {
+
+                    //map.removeLayer(theMarker);
+
+                    // L.marker([32.073, 34.784], { icon: blueIcon }).addTo(map);
+
+
+                    try {
+                        let blackIcon = new planeIcon({ iconUrl: 'airplane-icon.png' });
+                        let blueIcon = new planeIcon({ iconUrl: 'airplane-blue-icon.png' });
+                        //L.marker([32.073, 34.784], { icon: blackIcon }).addTo(map);
+                        let lat = response[i].initial_Location.latitude;
+                        let lon = response[i].initial_Location.longitude;
+                        console.log('draw airplane at lon: ' + lon + ', lat: ' + lat);
+                        let theMarker = L.marker([response[i].initial_Location.longitude, response[i].initial_Location.latitude], { icon: blackIcon, id: 'test' + i }).on('click', function () {
+                            console.log('icon id: ' + this._leaflet_id);
+
+                            for (var i = 0; i < all_ids.length; i++) {
+                                if (all_ids[i] == this._leaflet_id) {
+                                    console.log('found requested id: ' + allFlightsdata[i]);
+                                    document.getElementById('f_id').innerHTML = allFlightsdata[i].flightID;
+                                    document.getElementById('c_n').innerHTML = allFlightsdata[i].company_Name;//e_p
+                                    // document.getElementById('e_p').innerHTML = allFlightsdata[i].company_Name;//e_p
+                                }
+                            }
+                            // console.log('icon id: ' + this._leaflet_id);
+
+                            map.removeLayer(this);
+                            L.marker([lon, lat], { icon: blueIcon }).addTo(map);
+                        }).addTo(map);
+                        console.log('icon id verify: ' + theMarker._leaflet_id);
+                        all_ids.push(theMarker._leaflet_id);
+                    } catch (err) {
+                        console.error(err);
+                    }
+
+
+
+
+
+                    let myFLight = `<tr><td><input type="button" class="button" size="20" /> </td>
+                                                <td>` + response[i].flightID + `</td>
+                                                <td>` + response[i].company_Name + `</td>
+
+                                          </tr>`;
+
+
+                    //});
+
+
+                    // }).addTo(map);
+
+                    $('#tbMyFlights').append(myFLight);
                 }
+
+
+
+
+
+
+
+            });
+            //added
+
+
+
+        }, 5000);
+
+
+
+
+        //let url = "../api/FlightPlan";
+
+        //let ids = [];
+
+        //$.getJSON(url, function (ids) {
+        //    // fill in ids array
+        //    ids.forEach(function (FlightPlan) {
+
+        //        let blackIcon = new planeIcon({ iconUrl: 'airplane-icon.png' });
+        //        let blueIcon = new planeIcon({ iconUrl: 'airplane-blue-icon.png' });
+
+        //        let theMarker = L.marker([32.073, 34.784], { icon: blackIcon }).on('click', function () {
+
+        //            map.removeLayer(theMarker);
+
+        //            L.marker([32.073, 34.784], { icon: blueIcon }).addTo(map);
+
+        //            let settings = {
+        //                "url": "http://localhost:56774/api/FlightPlan",
+        //                "method": "GET",
+        //                "headers": {
+        //                    "Content-Type": "application/javascript"
+        //                }
+        //            };
+
+        //            $.ajax(settings).done(function (response) {
+        //                //var jsonObj = JSON.parse(response);
+        //                console.log('test');
+        //                console.log(response);
+        //                $('#tbFlightDetails').empty();
+        //                let row = `
+        //                                <tr>
+        //                                    <td>x</td>
+        //                                    <td>`+ response[i].FlightID + `/td>
+        //                                     <td>`+ response[i].Company_Name + `/td>
+        //                                </tr>
+        //                           `
+        //                $('#tbFlightDetails').append(row);
+        //                let myFLight = `
+
+        //                                <tr>
+        //                                    <th>Flight ID</th>
+        //                                    <th>`+ response.FlightID + `</th>
+        //                                </tr>
+        //                                <tr>
+        //                                    <td>Starting Point</td>
+        //                                    <td>`+ console.log(response) + `</td>
+        //                                </tr>
+        //                                <tr>
+        //                                    <td>Ending Point</td>
+        //                                    <td>`+ console.log(response) + `</td>
+        //                                </tr>
+        //                                <tr>
+        //                                    <td>Company name</td>
+        //                                    <td>`+ response.Company_Name + `</td>
+        //                                </tr>
+        //                                <tr>
+        //                                    <td>Number of passengers</td>
+        //                                    <td>`+ response.Passengers + `</td>
+        //                                </tr>
+        //                           `
+        //                $('#tbMyFlights').append(myFLight);
+        //            });
+
+
+        //        }).addTo(map);
+        //    });
+        //});
+
+        function deleteFlightById(id) {
+            var settings = {
+                "url": "http://localhost:56774/api/FlightPlan/" + id,
+                "method": "DELETE"
             };
 
-            $.ajax(settings).done(function (flight) {
-                //  var jsonObj = JSON.parse(response);
-
-                $('#tbFlightDetails').empty();
-                var row = `
-
-                            <tr>
-                                <th>Flight ID</th>
-                                <th>`+ console.log(flight) + `</th>
-                            </tr>
-                            <tr>
-                                <td>Starting Point</td>
-                                <td>`+ console.log(flight) + `</td>
-                            </tr>
-                            <tr>
-                                <td>Ending Point</td>
-                                <td>`+ console.log(flight) + `</td>
-                            </tr>
-                            <tr>
-                                <td>Company name</td>
-                                <td>`+ console.log(flight) + `</td>
-                            </tr>
-                            <tr>
-                                <td>Number of passengers</td>
-                                <td>`+ console.log(flight) + `</td>
-                            </tr>
-                       `
-                $('#tbFlightDetails').append(row);
+            $.ajax(settings).done(function (response) {
+                console.log('delete response: ' + response);
             });
+        }
 
 
-        }).addTo(map);
 
-           // map.on('click', function (e) {
-                //var popLocation = e.latlng;
-                //var popup = L.popup()
-                //    .setLatLng(popLocation)
-                //    .setContent('<p>Hello world!<br />This is a nice popup.</p>')
-                //    .openOn(map);
-              //  alert(e.latlng);
-           // });
+        //$('#tbMyFlights').find('tr').click(function () {
+        //    var row = $(this).find('td:first').text();
+        //    alert('You clicked ' + row);
+        //});
 
+        //$('#tbMyFlights').on("click", "tr", function (e) {
+        //    alert(this.id);
+        //});
 
-            //function PlaneClick() {
-            //    L.Map().removeLayer(blackIcon);
-            //    L.marker([32.073, 34.784], { icon: BlueIcon }).addTo(map);
+        $(document).on("click", "#tbMyFlights tr td", function (e) {
+            // alert(this.id);
 
-            // }
+            var row_index = $(this).parent().index();
+            var col_index = $(this).index();
+            //alert(row_index);
+            //alert(col_index);
 
+            var table = document.getElementById("tbMyFlights");
+            var row = table.rows[row_index];
+            var cell = row.cells[0].innerHTML;
+            deleteFlightById(cell);
+            console.log('row: ' + row_index + ', col: ' + col_index + ', cell: ' + cell);
+        });
     </script>
 
     <style>

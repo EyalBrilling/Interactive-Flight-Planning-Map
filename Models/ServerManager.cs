@@ -23,11 +23,15 @@ namespace FlightSimulator_Web.Models
             List<Flight> externalFlightsList = new List<Flight>();
             foreach (Server server in serverlist)
             {
-                string stringToGetFlight = "http://localhost:" + server.serverURL + "/api/Flights?relative_to=" + relative_to;
+                string stringToGetFlight = "http://" + server.serverURL + "/api/Flights?relative_to=" + relative_to;
                HttpResponseMessage response =  await httpClient.GetAsync(stringToGetFlight);
                 string jsonString =await response.Content.ReadAsStringAsync();
-                Flight flight = JsonConvert.DeserializeObject<Flight>(jsonString);
-                externalFlightsList.Add(flight);
+                List<Flight> flightsList = JsonConvert.DeserializeObject<List<Flight>>(jsonString);
+                foreach(Flight externalFlight in flightsList)
+                {
+                    externalFlightsList.Add(externalFlight);
+                }
+                
             }
             return externalFlightsList;
         }
