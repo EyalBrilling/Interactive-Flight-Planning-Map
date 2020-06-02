@@ -14,8 +14,8 @@ namespace FlightSimulator_Web.Models
     {
         public double Longitude { get; set; }
         public double Latitude { get; set; }
-        [Key]
-        public DateTime Date_Time { get; set; }
+        
+        public DateTimeOffset Date_Time { get; set; }
     }
     [Owned]
     public class Location
@@ -34,8 +34,6 @@ namespace FlightSimulator_Web.Models
 
         public int Passengers { get; set; }
         public string Company_Name { get; set; }
-        public DateTime Date_Time { get; set; }
-        public bool IsExternal { get; set; }
 
         public InitialLocation initial_Location { get; set; }
 
