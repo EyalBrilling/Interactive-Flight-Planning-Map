@@ -149,7 +149,16 @@ namespace FlightSimulator_Web.Controllers
 
         }
 
-    
+        [Route("getallplanes")]
+        [HttpGet]
+        public async Task<ActionResult<FlightPlan>> GetAllPlanes()
+        {
+
+
+            return CreatedAtAction("GetAllPlanes", new { planes = flightContext.FlightsPlans });
+        }
+
+
 
 
 
