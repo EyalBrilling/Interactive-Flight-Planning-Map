@@ -36,6 +36,10 @@ namespace FlightSimulator_Web.Controllers
         //[HttpGet("{id}")]
         public async Task<ActionResult<FlightPlan>> GetFlightPlan(string id)
         {
+            if(id.Length != 6)
+            {
+                return BadRequest("This server plane IDs are 6 letters long. did you mean to request other ID?");
+            }
             FlightPlan flightPlan;
             flightPlan = await flightContext.FlightsPlans.Include(r => r.initial_Location)
                 .Include(r => r.segments).FirstOrDefaultAsync(x => x.FlightID == id);
@@ -59,6 +63,10 @@ namespace FlightSimulator_Web.Controllers
         [HttpPost]
         public async Task<ActionResult<FlightPlan>> PostFlightPlan(FlightPlan flightPlan)
         {
+            if (!flightManager.CheckIfFlightPlanIsValid(flightPlan))
+            {
+                return BadRequest("the flight plan format is wrong. did you forget a field?");
+            }
             string newID = flightManager.GenerateRandomID();
 
             flightPlan.FlightID = newID;
@@ -67,6 +75,7 @@ namespace FlightSimulator_Web.Controllers
             flightContext.FlightsPlans.Add(flightPlan);
             
             Flight flightFromFlightPlan = flightManager.CreateNewFlight(flightPlan);
+
 
             flightContext.Flights.Add(flightFromFlightPlan);
                
@@ -89,11 +98,7 @@ namespace FlightSimulator_Web.Controllers
             }
 
             Flight flight = await flightContext.Flights.FindAsync(id);
-            if (flightPlan == null)
-            {
-                return NotFound();
-            }
-
+           
             flightContext.Flights.Remove(flight);
             flightContext.FlightsPlans.Remove(flightPlan);
             await flightContext.SaveChangesAsync();
@@ -122,6 +127,10 @@ namespace FlightSimulator_Web.Controllers
             foreach(Flight externalFlight in updatedExternalFlights)
             {
                 externalFlight.is_External = true;
+                if (!flightManager.CheckIfFlightIsValid(externalFlight))
+                {
+                    return BadRequest("an external server sent wrong flight format. please check servers and try again.");
+                }
                 flightList.Add(externalFlight);
             }
             //recheck external variable in internal flights is not null and add to flightList
