@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Security.Cryptography;
 
+
 namespace FlightSimulator_Web.Models
 {
     public class FlightManager
@@ -163,6 +164,25 @@ namespace FlightSimulator_Web.Models
         public string ChangeDateFormatToUTC(DateTimeOffset fullDate)
         {
             return fullDate.ToString();
+        }
+
+        public bool CheckIfFlightIsValid(Flight flight)
+        {
+            if (flight.Passengers < 0 || flight.Company_Name == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool CheckIfFlightPlanIsValid(FlightPlan flightPlan) 
+        {
+            if(flightPlan.Passengers < 0 || flightPlan.Company_Name == null || flightPlan.segments == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
