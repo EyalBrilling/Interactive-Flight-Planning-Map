@@ -1,0 +1,68 @@
+﻿#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.active, .btn:hover {
+    color: blue;
+}
+.myclass {
+    height: 400px;
+}
+
+.cell1 {
+    display: table-cell;
+    width: 100px;
+    min-width: 100px;
+    border: 2px dashed #40f;
+}
+
+col-4 {
+    background-image: url('sky.png');
+    background-size: 100px 100px;
+}
+
+.button {
+    background-image: url('x.png');
+    background-size: 30px 30px;
+    padding: 3px 15px;
+}
+
+h2 {
+    font-weight: bold;
+    color: #0c090a;
+    font-size: 25px;
+}
+
+table {
+    font-family: Arial, sans-serif;
+    border: none;
+    width: 20%;
+}
+
+td, th {
+    border: none;
+    text-align: left;
+    padding: 15px;
+}
+
+.selected-row {
+    color: blue;
+}
+
+
+.pre-scrollable{
+    max-height:400px;
+}
+
+div.relative {
+    position: relative;
+    left: 30px;
+    border: 3px solid #73AD21;
+}
+/*tr:nth-child(even) {
+            /*background-color: #ffffff;*/
+/*}*/

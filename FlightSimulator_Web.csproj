@@ -26,9 +26,5 @@
     <PackageReference Include="System.Text.Encodings.Web" Version="4.7.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\htmlpage.html" />
-  </ItemGroup>
-
 
 </Project>

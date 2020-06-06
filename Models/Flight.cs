@@ -9,12 +9,21 @@ namespace FlightSimulator_Web.Controllers.Models
     public class Flight
     {
         [Key]
-        public string Flight_ID { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public int Passengers { get; set; }
-        public string Company_Name { get; set; }
-        public DateTimeOffset Date_Time { get; set; }
-        public bool is_External { get; set; }
+        //public string Flight_ID { get; set; }
+        //public double Latitude { get; set; }
+        //public double Longitude { get; set; }
+        //public int Passengers { get; set; }
+        //public string Company_Name { get; set; }
+        //public DateTimeOffset Date_Time { get; set; }
+        //public bool is_External { get; set; }
+
+
+        public string flight_id { get; set; }
+        public double latitude { get; set; }
+        public double longitude { get; set; }
+        public int passengers { get; set; }
+        public string company_name { get; set; }
+        public DateTimeOffset date_Time { get; set; }
+        public bool is_external { get; set; }
     }
 }

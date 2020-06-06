@@ -106,7 +106,7 @@ namespace FlightSimulator_Web.Controllers
 
         [Route("flights")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Flight>>> GetCurrentServerFlightsByDate(string relative_to)
+        public async Task<ActionResult<IEnumerable<Flight>>> GetFlightsByDate(string relative_to)
         {
             string uri = Request.QueryString.ToString();
 
@@ -121,14 +121,14 @@ namespace FlightSimulator_Web.Controllers
             //define external flights as external and add them to the flight list.
             foreach(Flight externalFlight in updatedExternalFlights)
             {
-                externalFlight.is_External = true;
+                externalFlight.is_external = true;
                 flightList.Add(externalFlight);
             }
             //recheck external variable in internal flights is not null and add to flightList
             foreach (Flight internalFlight in internalflightList)
             {
-                Flight flightToTakeExternalVariable = await flightContext.Flights.FirstOrDefaultAsync(plane => plane.Flight_ID == internalFlight.Flight_ID);
-                internalFlight.is_External = flightToTakeExternalVariable.is_External;
+                Flight flightToTakeExternalVariable = await flightContext.Flights.FirstOrDefaultAsync(plane => plane.flight_id == internalFlight.flight_id);
+                internalFlight.is_external = flightToTakeExternalVariable.is_external;
                 flightList.Add(internalFlight);
             }
 
@@ -141,7 +141,7 @@ namespace FlightSimulator_Web.Controllers
 
             else
             {
-                flightList = flightList.Where(flight => flight.is_External == false).ToList();
+                flightList = flightList.Where(flight => flight.is_external == false).ToList();
                 return flightList;
             }
 

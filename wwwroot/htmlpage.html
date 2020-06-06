@@ -1,198 +1,85 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+    <!--<meta charset="utf-8" />
+    <title></title>-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-
-    bootsrap
+    <!--<script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>-->
+    <!--bootsrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-
-
-
-    bootsrap
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <!--bootsrap-->
+    <!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
-
-    <style>
-
-        #map {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
-
-
-        .myclass {
-            height: 400px;
-        }
-
-        h2 {
-            font-weight: bold;
-            color: #0c090a;
-            font-size: 25px;
-        }
-
-        table {
-            font-family: Arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        td, th {
-            border: 2px solid #0c090a;
-            text-align: left;
-            padding: 16px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #ffffff;
-        }
-    </style>
+    <script src="index.js"></script>
+    
+    <link href="index.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container">
         <div class="row myclass">
             <div class="col-8">
-
                 <div id="map" style="width: 100%; height: 400px">
-
                 </div>
             </div>
-            <div class="col-4" style="background-color:cornflowerblue;">
+            <div class="col-4 pre-scrollable" style=" background-color: lightslategrey "  >                
                 <h2>My Flights:</h2>
-            </div>
-        </div>
-        <div class="row myclass">
-
-            <div class="col-8" style="background-color:lightpink;">
-                <h2>Flight Details:</h2>
-                <table id="tbFlightDetails">
+                <label for="myfile">Add Flight From File</label>
+                <input type="file" id="myfile" name="myfile"><br><br>
+                <input type="button" onclick="fileUpload()" value="Upload">
+                <br>
+                <table id="tbMyFlights" >
                     <tr>
-                        <th>Flight ID</th>
                         <th></th>
-                    </tr>
-                    <tr>
-                        <td>Starting Point</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Ending Point</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Company name</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Number of passengers</td>
-                        <td></td>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </table>
             </div>
-            <div class="col-4" style="background-color:cornflowerblue;"><h2>External Flights:</h2></div>
+        </div>
+        <div class="row myclass">
+            <div class="col-8" style="  background-image: url('details.png');">
+                <div>
+                    <h2>Flight Details:</h2>
+                    <table id="tbFlightDetails" style="width:100%">
+                        <tr>
+                            <th>Flight ID</th>
+                            <th id="f_id"></th>
+                        </tr>
+                        <tr>
+                            <td>Starting Point</td>
+                            <td id="s_p"></td>
+                        </tr>
+                        <tr>
+                            <td>Ending Point</td>
+                            <td id="e_p"></td>
+                        </tr>
+                        <tr>
+                            <td>Company name</td>
+                            <td id="c_n"></td>
+                        </tr>
+                        <tr>
+                            <td>Number of passengers</td>
+                            <td id="no_p"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-4" style=" background-color: lightslategrey ">
+                <h2>External Flights:</h2>
+               
+                <br>
+                <table id="tbExternalFlights">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                </table>
+            </div>
         </div>
     </div>
-
-
-
-    <script>
-        var map = L.map('map').setView([0, 0], 1);
-        L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=2LNqDe6v0xBDFUL4TTOt', {
-            attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-        }).addTo(map);
-        var planeIcon = L.Icon.extend({
-            options: {
-                iconSize: [30, 30],
-                iconAnchor: [0, 0],
-                popupAnchor: [0, 0]
-            }
-        });
-        var blackIcon = new planeIcon({ iconUrl: 'airplane-icon.png' });
-        var blueIcon = new planeIcon({ iconUrl: 'airplane-blue-icon.png' });
-
-        var theMarker = L.marker([32.073, 34.784], { icon: blackIcon }).on('click', function () {
-
-            map.removeLayer(theMarker);
-
-            L.marker([32.073, 34.784], { icon: blueIcon }).addTo(map);
-
-            var settings = {
-                "url": "http://localhost:56774/htmlpage.html",
-                "method": "GET",
-                "headers": {
-                    "Content-Type": "application/javascript"
-                }
-            };
-
-            $.ajax(settings).done(function (flight) {
-                //  var jsonObj = JSON.parse(response);
-
-                $('#tbFlightDetails').empty();
-                var row = `
-
-                            <tr>
-                                <th>Flight ID</th>
-                                <th>`+ console.log(flight) + `</th>
-                            </tr>
-                            <tr>
-                                <td>Starting Point</td>
-                                <td>`+ console.log(flight) + `</td>
-                            </tr>
-                            <tr>
-                                <td>Ending Point</td>
-                                <td>`+ console.log(flight) + `</td>
-                            </tr>
-                            <tr>
-                                <td>Company name</td>
-                                <td>`+ console.log(flight) + `</td>
-                            </tr>
-                            <tr>
-                                <td>Number of passengers</td>
-                                <td>`+ console.log(flight) + `</td>
-                            </tr>
-                       `
-                $('#tbFlightDetails').append(row);
-            });
-
-
-        }).addTo(map);
-
-           // map.on('click', function (e) {
-                //var popLocation = e.latlng;
-                //var popup = L.popup()
-                //    .setLatLng(popLocation)
-                //    .setContent('<p>Hello world!<br />This is a nice popup.</p>')
-                //    .openOn(map);
-              //  alert(e.latlng);
-           // });
-
-
-            //function PlaneClick() {
-            //    L.Map().removeLayer(blackIcon);
-            //    L.marker([32.073, 34.784], { icon: BlueIcon }).addTo(map);
-
-            // }
-
-    </script>
-
-    <style>
-        div.relative {
-            position: relative;
-            left: 30px;
-            border: 3px solid #73AD21;
-        }
-    </style>
 </body>
 </html>

@@ -48,14 +48,14 @@ namespace FlightSimulator_Web.Models
         {
             Flight newFlight = new Flight();
 
-            newFlight.Flight_ID = model.FlightID;
+            newFlight.flight_id = model.FlightID;
 
-            newFlight.Longitude = model.initial_Location.Longitude;
-            newFlight.Latitude = model.initial_Location.Latitude;
-            newFlight.Passengers = model.Passengers;
-            newFlight.Company_Name = model.Company_Name;
-            newFlight.Date_Time = model.initial_Location.Date_Time;
-            newFlight.is_External = false;
+            newFlight.longitude = model.initial_Location.Longitude;
+            newFlight.latitude = model.initial_Location.Latitude;
+            newFlight.passengers = model.Passengers;
+            newFlight.company_name = model.Company_Name;
+            newFlight.date_Time = model.initial_Location.Date_Time;
+            newFlight.is_external = false;
             return newFlight;
 
 
@@ -86,10 +86,10 @@ namespace FlightSimulator_Web.Models
         private Flight MakeNewFlightRelativeToTimeInAir(TimeSpan TimeOfFlightUntilDate, FlightPlan flightPlan)
         {
             Flight currentFlightInfo = new Flight();
-            currentFlightInfo.Flight_ID = flightPlan.FlightID;
-            currentFlightInfo.Passengers = flightPlan.Passengers;
-            currentFlightInfo.Company_Name = flightPlan.Company_Name;
-            currentFlightInfo.Date_Time = flightPlan.initial_Location.Date_Time.Add(TimeOfFlightUntilDate);
+            currentFlightInfo.flight_id = flightPlan.FlightID;
+            currentFlightInfo.passengers = flightPlan.Passengers;
+            currentFlightInfo.company_name = flightPlan.Company_Name;
+            currentFlightInfo.date_Time = flightPlan.initial_Location.Date_Time.Add(TimeOfFlightUntilDate);
 
             TimeSpan timeCounter = TimeSpan.Zero;
             double previousSegmentLongitude = flightPlan.initial_Location.Longitude;
@@ -107,8 +107,8 @@ namespace FlightSimulator_Web.Models
                     double partOfSegment = (TimeOfFlightUntilDate.TotalSeconds - previousSegmentTimeCounter.TotalSeconds) / (location.TimeSpan_Seconds);
                     
                     //calculate longitude and latitude of plane relatve to the date
-                    currentFlightInfo.Longitude =previousSegmentLongitude + (location.Longitude - previousSegmentLongitude) * partOfSegment;
-                    currentFlightInfo.Latitude =previousSegmentLatitude + (location.Latitude - previousSegmentLatitude) * partOfSegment;
+                    currentFlightInfo.longitude =previousSegmentLongitude + (location.Longitude - previousSegmentLongitude) * partOfSegment;
+                    currentFlightInfo.latitude =previousSegmentLatitude + (location.Latitude - previousSegmentLatitude) * partOfSegment;
                     break;
                 }
                 //save previous segment location
