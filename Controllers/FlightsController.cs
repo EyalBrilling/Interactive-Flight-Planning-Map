@@ -106,8 +106,9 @@ namespace FlightSimulator_Web.Controllers
 
         [Route("flights")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Flight>>> GetFlightsByDate(string relative_to)
+        public async Task<ActionResult<IEnumerable<object>>> GetFlightsByDate(string relative_to)
         {
+            FlightPlan flightPlan = new FlightPlan(); 
             string uri = Request.QueryString.ToString();
 
             List<Flight> flightList = new List<Flight>();
@@ -132,17 +133,29 @@ namespace FlightSimulator_Web.Controllers
                 flightList.Add(internalFlight);
             }
 
+            List<FlightPlan> flightPlanList = new List<FlightPlan>();
+
             if (uri.Contains("sync_all"))
             {
-         
                 
-                return flightList;
+                foreach (Flight flight in flightList)
+                {
+                    flightPlan = flightContext.FlightsPlans.Find(flight.flight_id);
+                    if (flightPlan == null)
+                    {
+                        flightPlan = await serverManager.returnExternalFlightPlan(flight, await flightContext.Servers.ToListAsync());
+                    }
+                    flightPlanList.Add(flightPlan);
+                }
+                return flightPlanList;
             }
 
             else
             {
                 flightList = flightList.Where(flight => flight.is_external == false).ToList();
+
                 return flightList;
+              
             }
 
            
